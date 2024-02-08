@@ -1,0 +1,186 @@
+
+sudo su
+
+================
+ 
+2. Python Install. —> python3 –version [ IN EC2 ] => Done
+
+yum install python -y
+
+python --version
+ 
+ 
+============================================
+ 3. Install AWS CLI [ IN EC2 ] => Done
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+yum install unzip
+
+unzip awscliv2.zip 
+
+./aws/install
+
+aws --version
+============================================
+
+4) Install Git [ IN EC2 ] => Done
+
+yum install git -y
+
+CREATE THE GITHUB ACCOUNT  - 
+https://github.com/DEVOPS-WITH-WEB-DEV/Splunk_Grafana_Setup.git
+
+git clone https://github.com/DEVOPS-WITH-WEB-DEV/Splunk_Grafana_Setup.git
+
+============================================
+5) Install Java [ IN EC2 ] => Done
+
+yum install java -y
+
+java --version
+
+============================================
+
+6) Install Maven [ IN EC2 ] => Done
+
+cd /opt/
+
+wget http://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+
+tar xvzf  apache-maven-3.6.3-bin.tar.gz
+
+vim /etc/profile.d/maven.sh
+
+-- Note: Paste below two export data in vim /etc/profile.d/maven.sh and come out of the file------ 
+export MAVEN_HOME=/opt/apache-maven-3.6.3
+export PATH=$PATH:$MAVEN_HOME/bin
+-----
+
+and execute below commands 
+
+export MAVEN_HOME=/opt/apache-maven-3.6.3
+
+export PATH=$PATH:$MAVEN_HOME/bin
+
+mvn -v
+
+output:
+
+
+[root@ip-172-31-10-210 opt]#
+[root@ip-172-31-10-210 opt]# cat /etc/profile.d/maven.sh
+export MAVEN_HOME=/opt/apache-maven-3.6.3
+export PATH=$PATH:$MAVEN_HOME/bin
+[root@ip-172-31-10-210 opt]#
+
+[root@ip-172-31-10-210 opt]# export MAVEN_HOME=/opt/apache-maven-3.6.3
+[root@ip-172-31-10-210 opt]# export PATH=$PATH:$MAVEN_HOME/bin
+[root@ip-172-31-10-210 opt]#
+
+[root@ip-172-31-10-210 opt]# mvn -v
+Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
+Maven home: /opt/apache-maven-3.6.3
+Java version: 21.0.2, vendor: Amazon.com Inc., runtime: /usr/lib/jvm/java-21-amazon-corretto.x86_64
+Default locale: en, platform encoding: UTF-8
+OS name: "linux", version: "6.1.75-99.163.amzn2023.x86_64", arch: "amd64", family: "unix"
+[root@ip-172-31-10-210 opt]#
+
+
+============================================
+
+Install Jenkins [ Jenkins Always Updates the packages so make sure if any error google it ] => No Error and Done
+
+cd /opt/
+
+sudo yum update -y
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo 
+
+sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io-2023.key 
+
+sudo yum install jenkins -y 
+
+systemctl daemon-reload
+
+sudo systemctl start jenkins
+
+sudo systemctl enable jenkins
+
+sudo systemctl status jenkins
+
+============================================
+Install Docker  [ IN EC2 ] => Done
+
+yum install docker -y
+
+usermod -aG docker jenkins [ Add jenkins user to docker group ]
+
+sudo systemctl status docker
+
+sudo systemctl start docker
+
+sudo systemctl enable docker
+
+
+============================================
+
+Install Kubectl [In EC2] => Done
+
+curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+
+mkdir -p $HOME/bin
+
+cp ./kubectl $HOME/bin/kubectl
+
+export PATH=$HOME/bin:$PATH
+
+echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+
+source $HOME/.bashrc
+
+kubectl version --short -client
+
+output:
+[root@ip-172-31-10-210 ~]# kubectl version --short --client
+Client Version: v1.14.7-eks-1861c5
+[root@ip-172-31-10-210 ~]#
+
+============================================
+
+ 11. Install eksctl  [ In EC2 ] [ AMAZON EKS ] => Done
+
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+
+sudo mv /tmp/eksctl /usr/bin
+
+eksctl version
+
+output:
+
+[root@ip-172-31-10-210 ~]# eksctl version
+0.170.0
+[root@ip-172-31-10-210 ~]#
+
+
+=============================================
+
+12. Install Node/NPM [ In EC2 ]
+
+sudo yum install nodejs -y
+
+node -v
+
+npm -v
+
+output:
+
+[root@ip-172-31-10-210 ~]#
+[root@ip-172-31-10-210 ~]# node -v
+v18.18.2
+[root@ip-172-31-10-210 ~]#
+[root@ip-172-31-10-210 ~]# npm -v
+9.8.1
+[root@ip-172-31-10-210 ~]#
